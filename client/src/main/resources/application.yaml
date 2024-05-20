@@ -1,0 +1,29 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          patients:
+            token-uri: http://localhost:8080/realms/PatientCrud/protocol/openid-connect/token
+        registration:
+          patients:
+            authorization-grant-type: password
+            client-authentication-method: basic
+            client-id: login-app
+            client-secret: no-secret-required
+            provider: patients
+            scope: profile, email
+
+
+patients:
+  base-url: http://localhost:8081/patients
+  username: user1
+  password: P@ssw0rd1
+
+generate:
+  records-number: 10
+
+
+
+server:
+  port: 8082

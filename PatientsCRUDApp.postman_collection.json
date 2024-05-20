@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "381daff7-0651-4025-829b-9edab8da38b9",
+		"name": "PatientsCRUDApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23108619"
+	},
+	"item": [
+		{
+			"name": "Add Patient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{patient-username}}\",\r\n    \"password\": \"{{patient-password}}\",\r\n    \"gender\": \"female\",\r\n    \"birthDate\": \"2024-01-13T18:25:43\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/patients/patient"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Patient",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/patients/name/patient1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Patient",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer "
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=D8B22C685118440D148A81149FE58C99"
+					}
+				],
+				"url": "http://localhost:8081/patients/delete/62b0fc4f-1d74-4927-81f2-f651fc5b0b52"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Patient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"c672b76b-d2a3-46c6-865c-4e1131cea77a\",\r\n    \"name\": \"{{patient-username}}\",\r\n    \"gender\": \"male\",\r\n    \"birthDate\": \"2024-01-13T18:15:43\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/patients/update"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All Patients",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8081/patients/delete"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": {
+			"password": "{{password}}",
+			"username": "{{username}}",
+			"clientId": "{{client-id}}",
+			"accessTokenUrl": "{{token-uri}}",
+			"grant_type": "password_credentials",
+			"tokenName": "Access Token",
+			"addTokenTo": "header"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

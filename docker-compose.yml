@@ -1,0 +1,68 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: patients
+      POSTGRES_USER: cryptad
+      POSTGRES_PASSWORD: P@ssw0rd
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    command: -c listen_addresses='*'
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.3
+    command: start
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: cryptad
+      KEYCLOAK_ADMIN_PASSWORD: P@ssw0rd
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/patients
+      KC_DB_USERNAME: cryptad
+      KC_DB_PASSWORD: P@ssw0rd
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
+  api-service:
+    build: ./patient-api
+    ports:
+      - 8081:8081
+    depends_on:
+      - keycloak
+    networks:
+      - backend
+
+  consumer-service:
+    build: ./client
+    ports:
+      - 8082:8082
+    depends_on:
+      - api-service
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: local
+
+volumes:
+  postgres_data:
+    driver: bridge
+

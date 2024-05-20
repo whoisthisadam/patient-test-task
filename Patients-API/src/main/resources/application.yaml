@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: Patients
+  datasource:
+    url: jdbc:postgresql://34.135.116.112:5432/patients
+    username: cryptad
+    password: P@ssw0rd
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        default_schema: '"default"'
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/PatientCrud
+          jwk-set-uri: http://localhost:8080/realms/PatientCrud/protocol/openid-connect/certs
+
+logging:
+  level:
+    com.kasperovich.patients: DEBUG
+    org.springframework.security: DEBUG
+
+keycloak:
+  server-url: http://localhost:8080/
+  realm: PatientCrud
+  username: cryptad
+  password: P@ssw0rd
+  client-id: login-app
+  target-client-id: patient
+
+
+server:
+  port: 8081
+
