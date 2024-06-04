@@ -2,23 +2,25 @@ spring:
   application:
     name: Patients
   datasource:
-    url: jdbc:postgresql://34.135.116.112:5432/patients
+    url:  jdbc:postgresql://77.238.232.143:5432/patients
     username: cryptad
     password: P@ssw0rd
     driverClassName: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     defer-datasource-initialization: true
+    generate-ddl: true
     properties:
       hibernate:
-        default_schema: '"default"'
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: create
+        default_schema: '"default"'
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/PatientCrud
-          jwk-set-uri: http://localhost:8080/realms/PatientCrud/protocol/openid-connect/certs
+          issuer-uri: http://77.238.232.143:8080/realms/PatientCrud
+          jwk-set-uri: http://77.238.232.143:8080/realms/PatientCrud/protocol/openid-connect/certs
 
 logging:
   level:
@@ -26,7 +28,7 @@ logging:
     org.springframework.security: DEBUG
 
 keycloak:
-  server-url: http://localhost:8080/
+  server-url: http://77.238.232.143:8080/
   realm: PatientCrud
   username: cryptad
   password: P@ssw0rd
